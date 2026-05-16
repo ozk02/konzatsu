@@ -1,0 +1,30 @@
+name: Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Syntax-check static JS
+        run: |
+          node --check public/app.js
+          node --check public/sw.js
+
+      - name: Validate manifest
+        run: node -e "JSON.parse(require('fs').readFileSync('public/manifest.webmanifest','utf8'))"
+
+      - name: Wrangler dry-run deploy
+        run: npx wrangler deploy --dry-run --outdir=/tmp/wrangler-build
