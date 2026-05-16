@@ -233,27 +233,35 @@ main {
   align-items: end;
   gap: 4px;
   height: 80px;
-  padding: 6px 4px 18px;
+  padding: 8px 8px 10px;
   background: var(--bg-elev-2);
-  border-radius: 10px;
-  position: relative;
+  border-radius: 10px 10px 0 0;
 }
 .trend .col {
   width: 100%;
   background: var(--accent);
   border-radius: 4px 4px 0 0;
   opacity: 0.85;
-  position: relative;
 }
 .trend .col.now { outline: 2px solid var(--fg); }
-.trend .lbl {
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 9px;
+
+.trend-labels {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+  padding: 4px 8px 8px;
+  background: var(--bg-elev-2);
+  border-radius: 0 0 10px 10px;
+  font-size: 10px;
   color: var(--fg-dim);
+  line-height: 1;
 }
+.trend-labels span {
+  text-align: center;
+  white-space: nowrap;
+}
+.trend-labels span:first-child { text-align: left; }
+.trend-labels span:last-child { text-align: right; }
 
 .empty {
   color: var(--fg-dim);

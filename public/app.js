@@ -30,6 +30,7 @@ const els = {
   updated: $("#updated"),
   samples: $("#samples"),
   trend: $("#trend"),
+  trendLabels: $("#trendLabels"),
 };
 
 let currentSpot = null;
@@ -132,17 +133,18 @@ function renderResult(spot) {
 
 function renderTrend(trend) {
   els.trend.innerHTML = "";
+  els.trendLabels.innerHTML = "";
   for (const t of trend) {
     const col = document.createElement("div");
     col.className = "col" + (t.offset === 0 ? " now" : "");
     col.style.height = Math.round(t.v * 100) + "%";
-    if (t.offset === 0 || t.offset === -6 || t.offset === -11) {
-      const lbl = document.createElement("span");
-      lbl.className = "lbl";
-      lbl.textContent = t.hour + "時";
-      col.appendChild(lbl);
-    }
     els.trend.appendChild(col);
+
+    const lbl = document.createElement("span");
+    if (t.offset === 0 || t.offset === -6 || t.offset === -11) {
+      lbl.textContent = t.hour + "時";
+    }
+    els.trendLabels.appendChild(lbl);
   }
 }
 
